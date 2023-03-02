@@ -1,3 +1,6 @@
+-- Skills used: CTE's, Windows Functions, Aggregate Functions, Creating Views
+
+
 -- Select the table from the schema
 
 USE sql_sales;
@@ -14,17 +17,18 @@ FROM grocery_sales
 GROUP BY order_year
 ORDER BY order_year;
 
--- total revenue by category
+-- Create a view for total revenue by category
+CREATE VIEW TotalRevenuebyCategory AS
 SELECT category,SUM(total_sales) AS total_revenue
 FROM grocery_sales
 GROUP BY category
 ORDER BY category;
 
--- highest sales by city
-SELECT city,SUM(total_sales) as highest_sales
-from grocery_sales
-GROUP BY city
-ORDER BY highest_sales desc
+SELECT * 
+FROM TotalRevenuebyCategory;
 
--- Create a view to visualise the data
-CREATE VIEW 
+-- cities with highest sales
+SELECT city,MAX(total_sales) AS highest_sales
+FROM grocery_sales
+GROUP BY city
+ORDER BY highest_sales DESC;
